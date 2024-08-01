@@ -1,0 +1,32 @@
+<!--render_fieldマクロを_formhelpersから呼び出し-->
+{% from "_formhelpers.html" import render_field %}
+<!--base.htmlを継承してくださいの宣言-->
+{% extends 'base.html' %}
+<!--base.htmlのtitleをこれに↓書き換えてください-->
+{% block title %}ホーム画面{% endblock %}
+
+{% block content %}
+<main>
+	<div class="container">
+		<!--ログインが成功している場合-->
+		{% if current_user.is_authenticated %}
+		<h2 class="start-message">
+			ようこそ！{{ current_user.username }}さん
+
+		</h2>
+		{% else %}
+		<h2 class="start-message">
+			ログイン　or ユーザー登録をしてください
+		</h2>
+		<form class="start-login-button-container"> 
+			<button class="start-login-button"> 
+				<a href="{{ url_for('todo_app.login') }}">ログイン</a>
+			</button>
+			<button class="start-login-button"> 
+				<a href="{{ url_for('todo_app.register') }}">登録</a>
+			</button>
+		</form>
+                {% endif %}
+	</div>
+</main>
+{% endblock content %}

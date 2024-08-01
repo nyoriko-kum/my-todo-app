@@ -1,0 +1,32 @@
+{% from "_formhelpers.html" import render_field %}
+{% extends 'base.html' %}
+
+{% block title %}タスク詳細画面{% endblock %}
+
+{% block content %}
+<main>
+	<div class="task-detail-container">
+		<h2 class="task-detail-title">
+			{{ task.title }}
+		</h2>
+		<p>
+			{{ task.detail }}
+		</p>
+		<div class="task-detail-expiry"> 
+			<p>
+				期限：{{ task.end_time.date() }}
+			</p>
+			{% if task.end_time.date() < today %}
+			<button class="orange-button expired-button">
+				期限切れです！
+			</button>
+			{% endif %}
+		</div>
+		<div class="single-button-container">
+			<button class="blue-button">
+				<a href="/user">戻る</a>
+			</button>
+		</div>
+	</div>
+</main>
+{% endblock content %}

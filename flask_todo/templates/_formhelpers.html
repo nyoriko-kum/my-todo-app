@@ -1,0 +1,20 @@
+<!--render_fieldというマクロを定義引数にfieldを受け取ります-->
+<!--マクロは特定のコードブロックを名前つきで定義し、後でその名前を使ってコードブロックを呼び出すことができる仕組み⇒同じコードを書かなくていい-->
+{% macro render_field(field) %}
+<!--dtタグは用語を定義し、ddタグでその説明を定義する感じ-->
+<dt>{{ field.label }}
+	<!--field という変数に対して kwargs を引数として渡して関数を呼び出し、その結果を安全に出力するという意味です-->
+	<!--| safeは、HTMLエスケープを無効化して、そのままHTMLとして表示することを許可-->
+	<dd>{{ field(**kwargs)| safe }}
+	<!--if文でもし、fieldにエラーが出ていたら-->
+	    {% if field.errors %}
+	    <ul class="errors">
+		    {% for error in field.errors %}
+		    <!--errorをfieldの中からfor文で取り出して、表示-->
+		    <li>{{ error }}</li>
+		    {% endfor %}
+	    </ul>
+	    {% endif %}
+	 </dd>
+</dt>
+{% endmacro %}

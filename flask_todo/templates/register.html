@@ -1,0 +1,30 @@
+{% from "_formhelpers.html" import render_field %}
+{% extends 'base.html' %}
+
+{% block title %}ユーザー情報登録画面{% endblock %}
+
+{% block content %}
+<main>
+	<h2 class="authentication-title">登録してください</h2>
+	<form method="post">
+		<!--inputタグによって入力された文字列は、nameに設定したものを引数としてviews.pyで処理します-->
+		<input type="text" placeholder="Name" name="name">
+		<input type="text" placeholder="Email" name="email">
+		<input type="password" placeholder="Password" name="password1">
+		<input type="password" placeholder="Password Confirmation" name="password2">
+		<div class="single-button-container">
+			<button class="blue-button">登録</button>
+		</div>
+		<!--入力ミス（入力エラーなど）があれば表示します-->
+		{% with messages = get_flashed_messages() %}
+		  {% if messages %}
+		     <ul class="flashes">
+			     {% for message in messages %}
+			     <li>{{ message }}</li>
+			     {% endfor %}
+		     </ul>
+		   {% endif %}
+		{% endwith %}
+        </form>
+</main>
+{% endblock content %}
